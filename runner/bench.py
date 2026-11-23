@@ -103,8 +103,11 @@ def _fill(node, url):
             else:
                 _fill(value, url)
     elif isinstance(node, list):
-        for item in node:
-            _fill(item, url)
+        for pos, item in enumerate(node):
+            if isinstance(item, str):
+                node[pos] = item.replace("{URL}", url)
+            else:
+                _fill(item, url)
 
 
 def call_once(provider, page, key, timeout):

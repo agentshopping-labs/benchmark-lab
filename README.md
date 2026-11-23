@@ -9,6 +9,7 @@
 - `configs/detection.json` — 拦截页检测规则
 - `corpus/corpus.json` — 冻结的 20 个美国页面
 - `runner/bench.py` — 单线程限速 runner（stdlib，tiktoken 可选；含熔断）
+- `tests/test_bench.py` — 20 个单元测试（mock 网络 + 干跑 CLI），改 runner 后必须先跑
 - `runs/` — 每次运行的原始响应与汇总（gitignored，本地归档）
 - `metrics/` — 入公开 Git 的指标摘要与响应体 SHA-256（不含响应体）
 
@@ -19,15 +20,19 @@
    ```
    python3 runner/bench.py --round r1 --dry-run
    ```
-3. **探路扣费**：先跑 1 静态 + 1 反爬两页（索引按 corpus 实际编号），核对各厂商后台真实 credit 倍率，再定单轮安全样本数：
+3. 跑单元测试（零网络，改代码后必做）：
+   ```
+   python3 -m unittest discover -s tests
+   ```
+4. **探路扣费**：先跑 1 静态 + 1 反爬两页（索引按 corpus 实际编号），核对各厂商后台真实 credit 倍率，再定单轮安全样本数：
    ```
    python3 runner/bench.py --round probe --indices 1,5
    ```
-4. 正式跑一轮（单线程，间隔 2 秒）：
+5. 正式跑一轮（单线程，间隔 2 秒）：
    ```
    python3 runner/bench.py --round r1
    ```
-5. 跨时段至少跑 3 轮（r1/r2/r3），结果在各自 `runs/<run-id>/summary.json`；可公开的去响应体副本在 `metrics/<run-id>/`。
+6. 跨时段至少跑 3 轮（r1/r2/r3），结果在各自 `runs/<run-id>/summary.json`；可公开的去响应体副本在 `metrics/<run-id>/`。
 
 ## 安全与红线
 

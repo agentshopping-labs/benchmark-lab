@@ -16,6 +16,7 @@ import argparse
 import base64
 import datetime
 import gzip
+import hashlib
 import json
 import os
 import pathlib
@@ -167,6 +168,9 @@ def main():
     parser.add_argument("--round", required=True, help="round label, e.g. r1")
     parser.add_argument("--providers", default="", help="comma-separated provider ids")
     parser.add_argument("--limit", type=int, default=0, help="max corpus pages (0 = all)")
+    parser.add_argument("--indices", default="", help="comma-separated corpus indices, e.g. 1,5")
+    parser.add_argument("--max-errors", type=int, default=3,
+                        help="abort after this many consecutive quota/network errors")
     parser.add_argument("--delay", type=float, default=2.0, help="seconds between calls")
     parser.add_argument("--timeout", type=float, default=120.0)
     parser.add_argument("--dry-run", action="store_true")
@@ -176,8 +180,13 @@ def main():
     provider_config = load_json("configs/providers.json")["providers"]
     detection = load_json("configs/detection.json")
     pages = load_json("corpus/corpus.json")["pages"]
+    if args.indices.strip():
+        wanted = {int(x) for x in args.indices.split(",") if x.strip()}
+        pages = [p for p in pages if p["index"] in wanted]
     if args.limit:
         pages = pages[:args.limit]
+    if not pages:
+        raise SystemExit("no corpus pages selected")
     selected = [p for p in provider_config
                 if not args.providers or p["id"] in args.providers.split(",")]
 
@@ -203,6 +212,7 @@ def main():
         (run_dir / "meta.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
 
     summaries = {}
+    consecutive_errors = 0
     for provider in selected:
         key = os.environ.get(provider["key_env"], "")
         if not key and not args.dry_run:
@@ -221,10 +231,13 @@ def main():
             tokens = None
             if markdown and encoder:
                 tokens = len(encoder.encode(markdown))
+            response_sha256 = (hashlib.sha256(markdown.encode("utf-8")).hexdigest()
+                               if markdown else None)
             record = {
                 "index": page["index"], "url": page["url"],
                 "page_type": page["page_type"], "anti_bot": page["anti_bot"],
                 **result,
+                "response_sha256": response_sha256,
                 "block_reason": block_reason,
                 "success": success,
                 "markdown_chars": len(markdown) if markdown else 0,
@@ -239,6 +252,14 @@ def main():
             records.append(record)
             print(f"{provider['id']} {page['index']:02d} success={success} "
                   f"status={record['status']} latency={record['latency_ms']}ms")
+            if success:
+                consecutive_errors = 0
+            else:
+                consecutive_errors += 1
+                if consecutive_errors >= args.max_errors:
+                    raise SystemExit(
+                        f"circuit breaker: {consecutive_errors} consecutive failures "
+                        f"(quota/network/block) — run aborted to protect samples")
             time.sleep(args.delay)
 
         if records:
@@ -261,7 +282,19 @@ def main():
             json.dumps({"run_id": run_id, "finished": utc_now(), "summaries": summaries},
                        indent=2, ensure_ascii=False),
             encoding="utf-8")
+        # Public-safe copy: metrics + hashes only, markdown bodies excluded.
+        metrics_dir = LAB_ROOT / "metrics" / run_id
+        metrics_dir.mkdir(parents=True, exist_ok=True)
+        (metrics_dir / "meta.json").write_text(
+            (run_dir / "meta.json").read_text(encoding="utf-8"), encoding="utf-8")
+        (metrics_dir / "summary.json").write_text(
+            (run_dir / "summary.json").read_text(encoding="utf-8"), encoding="utf-8")
+        for json_file in (run_dir / "raw").rglob("*.json"):
+            target = metrics_dir / "raw" / json_file.parent.name / json_file.name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(json_file.read_text(encoding="utf-8"), encoding="utf-8")
         print(f"run complete: {run_dir}")
+        print(f"public metrics copy: {metrics_dir}")
     else:
         print("dry run complete; no calls made")
 

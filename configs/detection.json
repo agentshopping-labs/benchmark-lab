@@ -1,0 +1,15 @@
+{
+  "block_keywords": [
+    "verify you are human", "checking your browser", "please enable cookies",
+    "access denied", "captcha", "challenge page", "unusual traffic",
+    "enable javascript and cookies to continue", "just a moment",
+    "pardon our interruption", "bot detection"
+  ],
+  "min_markdown_chars": {
+    "ecommerce": 200,
+    "saas": 200,
+    "docs": 150,
+    "sandbox": 100
+  },
+  "notes": "Success requires HTTP 200, non-empty markdown, no keyword hit and length above the page-type threshold. Thresholds are conservative guards, not content-quality scores."
+}

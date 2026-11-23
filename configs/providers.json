@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "providers": [
+    {
+      "id": "firecrawl",
+      "kind": "firecrawl",
+      "label": "Firecrawl",
+      "endpoint": "https://api.firecrawl.dev/v2/scrape",
+      "key_env": "FIRECRAWL_API_KEY",
+      "markdown_scope": "main_content",
+      "request": {
+        "method": "POST",
+        "headers": {"Content-Type": "application/json", "Authorization": "Bearer {KEY}"},
+        "body": {"url": "{URL}", "formats": ["markdown"]}
+      },
+      "markdown_path": "data.markdown",
+      "docs": "https://docs.firecrawl.dev/api-reference/endpoint/scrape"
+    },
+    {
+      "id": "zenrows",
+      "kind": "zenrows",
+      "label": "ZenRows",
+      "endpoint": "https://api.zenrows.com/v1/",
+      "key_env": "ZENROWS_API_KEY",
+      "markdown_scope": "full_page",
+      "request": {
+        "method": "GET",
+        "query": {"apikey": "{KEY}", "url": "{URL}", "mode": "auto", "response_type": "markdown"}
+      },
+      "markdown_path": "__body__",
+      "docs": "https://docs.zenrows.com/universal-scraper-api/features/markdown"
+    },
+    {
+      "id": "brightdata",
+      "kind": "brightdata",
+      "label": "Bright Data",
+      "endpoint": "https://api.brightdata.com/datasets/v3/scrape",
+      "key_env": "BRIGHTDATA_API_KEY",
+      "markdown_scope": "full_page",
+      "request": {
+        "method": "POST",
+        "headers": {"Content-Type": "application/json", "Authorization": "Bearer {KEY}"},
+        "body": {"input": [{"url": "{URL}"}], "custom_output_fields": "url|markdown"}
+      },
+      "markdown_path": "0.markdown",
+      "docs": "https://docs.brightdata.com/api-reference/scrapers/web-content-apis/fetch-api-collect-by-url"
+    },
+    {
+      "id": "zyte",
+      "kind": "zyte",
+      "label": "Zyte",
+      "endpoint": "https://api.zyte.com/v1/extract",
+      "key_env": "ZYTE_API_KEY",
+      "markdown_scope": "main_content",
+      "request": {
+        "method": "POST",
+        "basic_auth": true,
+        "headers": {"Content-Type": "application/json", "Accept-Encoding": "gzip"},
+        "body": {"url": "{URL}", "httpResponseBody": true, "markdown": true,
+                 "markdownOptions": {"mode": "mainContent"}}
+      },
+      "markdown_path": "markdown",
+      "docs": "https://docs.zyte.com/zyte-api/usage/extract/"
+    }
+  ]
+}

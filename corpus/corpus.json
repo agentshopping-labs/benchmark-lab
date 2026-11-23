@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "frozen": "2026-11-23",
+  "pages": [
+    {"index": 1, "url": "https://www.apple.com/iphone/", "label": "Apple iPhone family page", "page_type": "ecommerce", "anti_bot": true, "notes": "US; stable family page; local curl 200"},
+    {"index": 2, "url": "https://www.ikea.com/us/en/p/kallax-shelf-unit-white-80275887/", "label": "IKEA KALLAX shelf product", "page_type": "ecommerce", "anti_bot": true, "notes": "US; local curl 403 (anti-bot), host alive"},
+    {"index": 3, "url": "https://www.bestbuy.com/site/sony-wh-1000xm5-wireless-noise-canceling-over-the-ear-headphones-black/6505772.p", "label": "Best Buy Sony WH-1000XM5 product", "page_type": "ecommerce", "anti_bot": true, "notes": "US; TLS verified, HTTP layer anti-bot; product id drift to be checked at first run"},
+    {"index": 4, "url": "https://www.homedepot.com/p/304658562", "label": "Home Depot product page", "page_type": "ecommerce", "anti_bot": true, "notes": "US; local curl 403, host alive; slug to be confirmed at first run"},
+    {"index": 5, "url": "https://www.amazon.com/best-sellers-electronics/zgbs/electronics", "label": "Amazon Best Sellers Electronics", "page_type": "ecommerce", "anti_bot": true, "notes": "US; stable listing page, local curl 200"},
+    {"index": 6, "url": "https://www.scrapingcourse.com/ecommerce/product/abominable-hoodie/", "label": "ScrapingCourse sandbox product", "page_type": "sandbox", "anti_bot": false, "notes": "stability anchor; local curl 200"},
+    {"index": 7, "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html", "label": "Books.toscrape sandbox product", "page_type": "sandbox", "anti_bot": false, "notes": "stability anchor; local curl 200"},
+    {"index": 8, "url": "https://www.etsy.com/c/jewelry", "label": "Etsy jewelry category", "page_type": "ecommerce", "anti_bot": true, "notes": "US marketplace; local curl 403, host alive"},
+    {"index": 9, "url": "https://stripe.com/pricing", "label": "Stripe pricing", "page_type": "saas", "anti_bot": false, "notes": "US; local curl 200"},
+    {"index": 10, "url": "https://www.plaid.com/pricing/", "label": "Plaid pricing", "page_type": "saas", "anti_bot": false, "notes": "US; local curl 200"},
+    {"index": 11, "url": "https://openai.com/api/pricing/", "label": "OpenAI API pricing", "page_type": "saas", "anti_bot": true, "notes": "US; redirects to /business/pricing/#api; Cloudflare"},
+    {"index": 12, "url": "https://www.datadoghq.com/pricing/", "label": "Datadog pricing", "page_type": "saas", "anti_bot": false, "notes": "US; local curl 200"},
+    {"index": 13, "url": "https://www.atlassian.com/software/jira/pricing", "label": "Atlassian Jira pricing", "page_type": "saas", "anti_bot": true, "notes": "US; Cloudflare; local curl 200"},
+    {"index": 14, "url": "https://www.mongodb.com/pricing", "label": "MongoDB pricing", "page_type": "saas", "anti_bot": false, "notes": "US; local curl 200"},
+    {"index": 15, "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/", "label": "AWS S3 userguide root", "page_type": "docs", "anti_bot": false, "notes": "US; local curl 200"},
+    {"index": 16, "url": "https://cloud.google.com/storage/docs/introduction", "label": "GCS introduction", "page_type": "docs", "anti_bot": false, "notes": "US; local curl 200"},
+    {"index": 17, "url": "https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction", "label": "Azure Storage introduction", "page_type": "docs", "anti_bot": false, "notes": "US; local curl 200"},
+    {"index": 18, "url": "https://docs.github.com/en/get-started/using-github/hello-world", "label": "GitHub Docs hello world", "page_type": "docs", "anti_bot": false, "notes": "US; local curl 200"},
+    {"index": 19, "url": "https://supabase.com/docs", "label": "Supabase docs root", "page_type": "docs", "anti_bot": false, "notes": "US; local curl 200"},
+    {"index": 20, "url": "https://vercel.com/docs", "label": "Vercel docs root", "page_type": "docs", "anti_bot": false, "notes": "US; local curl 200"}
+  ]
+}

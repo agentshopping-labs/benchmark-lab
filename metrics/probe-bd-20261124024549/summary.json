@@ -1,0 +1,33 @@
+{
+  "run_id": "probe-bd-20261124024549",
+  "finished": "2026-11-24T02:45:50Z",
+  "summaries": {
+    "brightdata": {
+      "calls": 1,
+      "successes": 0,
+      "success_rate": 0.0,
+      "failure_classes": {
+        "http_error": 1
+      },
+      "latency_ms": {
+        "p50": 1018,
+        "p95": 1018,
+        "min": 1018,
+        "max": 1018
+      },
+      "markdown_tokens": null,
+      "markdown_chars": {
+        "min": 0,
+        "max": 0,
+        "mean": 0.0,
+        "null_count": 0
+      },
+      "markdown_words": {
+        "min": 0,
+        "max": 0,
+        "mean": 0.0,
+        "null_count": 0
+      }
+    }
+  }
+}

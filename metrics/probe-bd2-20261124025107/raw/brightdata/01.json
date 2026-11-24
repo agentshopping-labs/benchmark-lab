@@ -1,0 +1,16 @@
+{
+  "index": 1,
+  "url": "https://www.apple.com/iphone/",
+  "page_type": "ecommerce",
+  "anti_bot": true,
+  "status": 200,
+  "error_class": "parse_error",
+  "latency_ms": 2773,
+  "raw_bytes": 107313,
+  "response_sha256": null,
+  "block_reason": null,
+  "success": true,
+  "markdown_chars": 0,
+  "markdown_words": 0,
+  "markdown_tokens": null
+}

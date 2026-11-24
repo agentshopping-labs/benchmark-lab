@@ -1,0 +1,16 @@
+{
+  "run_id": "probe-zr-20261124023519",
+  "started": "2026-11-24T02:35:19Z",
+  "round": "probe-zr",
+  "dry_run": false,
+  "tokenizer": {
+    "name": null,
+    "note": "tiktoken unavailable; token fields null"
+  },
+  "providers": [
+    "zenrows"
+  ],
+  "page_count": 1,
+  "delay_seconds": 0.0,
+  "timeout_seconds": 120.0
+}

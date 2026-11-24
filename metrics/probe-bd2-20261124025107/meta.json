@@ -1,0 +1,16 @@
+{
+  "run_id": "probe-bd2-20261124025107",
+  "started": "2026-11-24T02:51:07Z",
+  "round": "probe-bd2",
+  "dry_run": false,
+  "tokenizer": {
+    "name": null,
+    "note": "tiktoken unavailable; token fields null"
+  },
+  "providers": [
+    "brightdata"
+  ],
+  "page_count": 1,
+  "delay_seconds": 0.0,
+  "timeout_seconds": 120.0
+}

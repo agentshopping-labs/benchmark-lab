@@ -1,0 +1,16 @@
+{
+  "run_id": "probe-fc-20261124022541",
+  "started": "2026-11-24T02:25:41Z",
+  "round": "probe-fc",
+  "dry_run": false,
+  "tokenizer": {
+    "name": null,
+    "note": "tiktoken unavailable; token fields null"
+  },
+  "providers": [
+    "firecrawl"
+  ],
+  "page_count": 1,
+  "delay_seconds": 0.0,
+  "timeout_seconds": 120.0
+}

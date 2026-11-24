@@ -1,0 +1,87 @@
+{
+  "run_id": "probe2-20261124030152",
+  "finished": "2026-11-24T03:02:26Z",
+  "summaries": {
+    "firecrawl": {
+      "calls": 2,
+      "successes": 2,
+      "success_rate": 1.0,
+      "failure_classes": {
+        "success": 2
+      },
+      "latency_ms": {
+        "p50": 1166,
+        "p95": 1831,
+        "min": 1166,
+        "max": 1831
+      },
+      "markdown_tokens": null,
+      "markdown_chars": {
+        "min": 2828,
+        "max": 21080,
+        "mean": 11954.0,
+        "null_count": 0
+      },
+      "markdown_words": {
+        "min": 170,
+        "max": 2344,
+        "mean": 1257.0,
+        "null_count": 0
+      }
+    },
+    "zenrows": {
+      "calls": 2,
+      "successes": 2,
+      "success_rate": 1.0,
+      "failure_classes": {
+        "success": 2
+      },
+      "latency_ms": {
+        "p50": 3024,
+        "p95": 3235,
+        "min": 3024,
+        "max": 3235
+      },
+      "markdown_tokens": null,
+      "markdown_chars": {
+        "min": 4401,
+        "max": 111986,
+        "mean": 58193.5,
+        "null_count": 0
+      },
+      "markdown_words": {
+        "min": 238,
+        "max": 16216,
+        "mean": 8227.0,
+        "null_count": 0
+      }
+    },
+    "brightdata": {
+      "calls": 2,
+      "successes": 2,
+      "success_rate": 1.0,
+      "failure_classes": {
+        "success": 2
+      },
+      "latency_ms": {
+        "p50": 3681,
+        "p95": 9504,
+        "min": 3681,
+        "max": 9504
+      },
+      "markdown_tokens": null,
+      "markdown_chars": {
+        "min": 0,
+        "max": 0,
+        "mean": 0.0,
+        "null_count": 0
+      },
+      "markdown_words": {
+        "min": 0,
+        "max": 0,
+        "mean": 0.0,
+        "null_count": 0
+      }
+    }
+  }
+}

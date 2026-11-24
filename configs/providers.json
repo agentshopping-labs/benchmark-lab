@@ -40,7 +40,9 @@
       "request": {
         "method": "POST",
         "headers": {"Content-Type": "application/json", "Authorization": "Bearer {KEY}"},
-        "body": {"input": [{"url": "{URL}"}], "custom_output_fields": "url|markdown"}
+        "query": {"dataset_id": "gd_m6gjtfmeh43we6cqc",
+                  "custom_output_fields": "url|markdown"},
+        "body": {"input": [{"url": "{URL}"}]}
       },
       "markdown_path": "0.markdown",
       "docs": "https://docs.brightdata.com/api-reference/scrapers/web-content-apis/fetch-api-collect-by-url"

@@ -204,6 +204,26 @@ class TestCallOnce(unittest.TestCase):
         self.assertEqual(result["error_class"], "parse_error")
         self.assertIsNone(result["markdown"])
 
+    def test_bare_dict_wrapped_for_index_path(self):
+        payload = json.dumps({"url": "u", "markdown": "x" * 300}).encode()
+        original = bench.urllib.request.urlopen
+        bench.urllib.request.urlopen = lambda req, timeout: FakeResponse(payload)
+        try:
+            result = bench.call_once(self._provider("0.markdown"),
+                                     {"url": "https://t"}, "k", 30)
+        finally:
+            bench.urllib.request.urlopen = original
+        self.assertIsNone(result["error_class"])
+        self.assertEqual(result["markdown"], "x" * 300)
+
+    def test_is_success_rejects_parse_error(self):
+        self.assertFalse(bench.is_success(
+            {"status": 200, "error_class": "parse_error"}, None))
+        self.assertFalse(bench.is_success(
+            {"status": 200, "error_class": None}, "block_page"))
+        self.assertTrue(bench.is_success(
+            {"status": 200, "error_class": None}, None))
+
     def test_http_error(self):
         def fake_urlopen(req, timeout):
             raise urllib.error.HTTPError(

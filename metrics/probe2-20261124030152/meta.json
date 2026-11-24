@@ -1,0 +1,18 @@
+{
+  "run_id": "probe2-20261124030152",
+  "started": "2026-11-24T03:01:52Z",
+  "round": "probe2",
+  "dry_run": false,
+  "tokenizer": {
+    "name": null,
+    "note": "tiktoken unavailable; token fields null"
+  },
+  "providers": [
+    "firecrawl",
+    "zenrows",
+    "brightdata"
+  ],
+  "page_count": 2,
+  "delay_seconds": 2.0,
+  "timeout_seconds": 120.0
+}

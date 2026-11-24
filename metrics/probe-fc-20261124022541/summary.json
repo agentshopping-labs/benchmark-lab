@@ -1,0 +1,33 @@
+{
+  "run_id": "probe-fc-20261124022541",
+  "finished": "2026-11-24T02:25:42Z",
+  "summaries": {
+    "firecrawl": {
+      "calls": 1,
+      "successes": 1,
+      "success_rate": 1.0,
+      "failure_classes": {
+        "success": 1
+      },
+      "latency_ms": {
+        "p50": 1896,
+        "p95": 1896,
+        "min": 1896,
+        "max": 1896
+      },
+      "markdown_tokens": null,
+      "markdown_chars": {
+        "min": 21080,
+        "max": 21080,
+        "mean": 21080.0,
+        "null_count": 0
+      },
+      "markdown_words": {
+        "min": 2344,
+        "max": 2344,
+        "mean": 2344.0,
+        "null_count": 0
+      }
+    }
+  }
+}

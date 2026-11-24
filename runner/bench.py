@@ -80,11 +80,11 @@ def make_request(provider, url, key):
     endpoint = provider["endpoint"]
     headers = {k: v.replace("{KEY}", key) for k, v in spec.get("headers", {}).items()}
     body = None
-    if method == "GET":
+    if "query" in spec:
         query = {k: v.replace("{KEY}", key).replace("{URL}", url)
                  for k, v in spec["query"].items()}
         endpoint = endpoint + "?" + urllib.parse.urlencode(query)
-    else:
+    if method != "GET":
         payload = json.loads(json.dumps(spec.get("body", {})))
         _fill(payload, url)
         body = json.dumps(payload).encode("utf-8")
@@ -143,6 +143,10 @@ def call_once(provider, page, key, timeout):
             parsed = None
         else:
             parsed = json.loads(raw.decode("utf-8", errors="replace"))
+            first = provider["markdown_path"].split(".", 1)[0]
+            # Single-input calls may return a bare object instead of a list.
+            if first.isdigit() and isinstance(parsed, dict):
+                parsed = [parsed]
             markdown = get_path(parsed, provider["markdown_path"])
     except (ValueError, KeyError, IndexError, TypeError):
         error_class = "parse_error"
@@ -151,6 +155,11 @@ def call_once(provider, page, key, timeout):
         error_class = "http_error"
     return {"status": status, "error_class": error_class, "markdown": markdown,
             "latency_ms": latency_ms, "raw_bytes": len(raw)}
+
+
+def is_success(result, block_reason):
+    return (result["status"] == 200 and not result["error_class"]
+            and not block_reason)
 
 
 def is_block(markdown, page, detection):
@@ -230,7 +239,7 @@ def main():
             result = call_once(provider, page, key, args.timeout)
             markdown = result.pop("markdown")
             block_reason = is_block(markdown, page, detection) if not result["error_class"] else None
-            success = result["status"] == 200 and not block_reason
+            success = is_success(result, block_reason)
             tokens = None
             if markdown and encoder:
                 tokens = len(encoder.encode(markdown))

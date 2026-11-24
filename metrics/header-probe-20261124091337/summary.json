@@ -1,0 +1,33 @@
+{
+  "run_id": "header-probe-20261124091337",
+  "finished": "2026-11-24T09:13:40Z",
+  "summaries": {
+    "zenrows": {
+      "calls": 1,
+      "successes": 1,
+      "success_rate": 1.0,
+      "failure_classes": {
+        "success": 1
+      },
+      "latency_ms": {
+        "p50": 1590,
+        "p95": 1590,
+        "min": 1590,
+        "max": 1590
+      },
+      "markdown_tokens": null,
+      "markdown_chars": {
+        "min": 111986,
+        "max": 111986,
+        "mean": 111986.0,
+        "null_count": 0
+      },
+      "markdown_words": {
+        "min": 16216,
+        "max": 16216,
+        "mean": 16216.0,
+        "null_count": 0
+      }
+    }
+  }
+}

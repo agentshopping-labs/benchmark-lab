@@ -148,6 +148,57 @@ class TestRequestBuilding(unittest.TestCase):
         self.assertEqual(node["b"], ["https://x", "keep"])
 
 
+class TestHeaderCapture(unittest.TestCase):
+    def test_extract_allowlist(self):
+        headers = FakeHeaders({
+            "X-Request-Credits": "10", "X-Request-Cost": "1",
+            "Concurrency-Remaining": "42", "X-Other": "skip"})
+        out = bench.capture_response_headers(
+            headers, ["X-Request-Credits", "X-Request-Cost",
+                      "Concurrency-Remaining", "Missing-One"])
+        self.assertEqual(out, {"X-Request-Credits": "10",
+                               "X-Request-Cost": "1",
+                               "Concurrency-Remaining": "42"})
+
+    def test_empty_without_config(self):
+        self.assertEqual(
+            bench.capture_response_headers(FakeHeaders({"X": "y"}), None),
+            {})
+
+    def test_call_once_records_captured_headers(self):
+        provider = {
+            "endpoint": "https://api.example.com/v2",
+            "markdown_path": "data.markdown",
+            "capture_headers": ["X-Request-Credits"],
+            "request": {"method": "POST",
+                        "headers": {"Authorization": "Bearer {KEY}"},
+                        "body": {"url": "{URL}"}}}
+        payload = json.dumps({"data": {"markdown": "x" * 10}}).encode()
+        original = bench.urllib.request.urlopen
+        bench.urllib.request.urlopen = lambda req, timeout: FakeResponse(
+            payload, headers={"X-Request-Credits": "5"})
+        try:
+            result = bench.call_once(provider, {"url": "https://t"}, "k", 30)
+        finally:
+            bench.urllib.request.urlopen = original
+        self.assertEqual(result["captured_headers"],
+                         {"X-Request-Credits": "5"})
+
+    def test_call_once_empty_headers_unconfigured(self):
+        payload = json.dumps({"data": {"markdown": "x"}}).encode()
+        original = bench.urllib.request.urlopen
+        bench.urllib.request.urlopen = lambda req, timeout: FakeResponse(payload)
+        try:
+            result = bench.call_once(
+                {"endpoint": "https://api.example.com",
+                 "markdown_path": "data.markdown",
+                 "request": {"method": "POST", "body": {"url": "{URL}"}}},
+                {"url": "https://t"}, "k", 30)
+        finally:
+            bench.urllib.request.urlopen = original
+        self.assertEqual(result["captured_headers"], {})
+
+
 class TestCallOnce(unittest.TestCase):
     def _provider(self, markdown_path="data.markdown"):
         return {

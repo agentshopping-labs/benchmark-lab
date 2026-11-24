@@ -1,0 +1,16 @@
+{
+  "run_id": "header-probe-20261124091337",
+  "started": "2026-11-24T09:13:37Z",
+  "round": "header-probe",
+  "dry_run": false,
+  "tokenizer": {
+    "name": null,
+    "note": "tiktoken unavailable; token fields null"
+  },
+  "providers": [
+    "zenrows"
+  ],
+  "page_count": 1,
+  "delay_seconds": 2.0,
+  "timeout_seconds": 120.0
+}

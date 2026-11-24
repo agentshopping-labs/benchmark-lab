@@ -24,6 +24,8 @@
       "endpoint": "https://api.zenrows.com/v1/",
       "key_env": "ZENROWS_API_KEY",
       "markdown_scope": "full_page",
+      "capture_headers": ["X-Request-Credits", "X-Request-Cost",
+                          "Concurrency-Limit", "Concurrency-Remaining"],
       "request": {
         "method": "GET",
         "query": {"apikey": "{KEY}", "url": "{URL}", "mode": "auto", "response_type": "markdown"}

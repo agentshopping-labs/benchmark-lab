@@ -165,6 +165,16 @@ def _parse_retry_after(headers):
         return None  # HTTP-date form not supported; fall back to backoff
 
 
+def capture_response_headers(headers, names):
+    """Extract a configured allowlist of response headers; missing ones omitted."""
+    out = {}
+    for name in names or []:
+        value = headers.get(name)
+        if value is not None:
+            out[name] = value
+    return out
+
+
 def call_once(provider, page, key, timeout):
     request = make_request(provider, page["url"], key)
     started = time.monotonic()
@@ -175,23 +185,27 @@ def call_once(provider, page, key, timeout):
                 raw = gzip.decompress(raw)
             status = response.status
             retry_after = None
+            captured_headers = capture_response_headers(
+                response.headers, provider.get("capture_headers"))
     except urllib.error.HTTPError as error:
         raw = error.read() or b""
         if error.headers.get("Content-Encoding") == "gzip" and raw:
             raw = gzip.decompress(raw)
         status = error.code
         retry_after = _parse_retry_after(error.headers)
+        captured_headers = capture_response_headers(
+            error.headers, provider.get("capture_headers"))
     except TimeoutError:
         return {"status": None, "error_class": "timeout", "markdown": None,
-                "retry_after": None,
+                "retry_after": None, "captured_headers": {},
                 "latency_ms": round((time.monotonic() - started) * 1000)}
     except urllib.error.URLError as error:
         if "timed out" in str(error.reason):
             return {"status": None, "error_class": "timeout", "markdown": None,
-                    "retry_after": None,
+                    "retry_after": None, "captured_headers": {},
                     "latency_ms": round((time.monotonic() - started) * 1000)}
         return {"status": None, "error_class": "network", "markdown": None,
-                "retry_after": None,
+                "retry_after": None, "captured_headers": {},
                 "latency_ms": round((time.monotonic() - started) * 1000)}
     latency_ms = round((time.monotonic() - started) * 1000)
 
@@ -215,6 +229,7 @@ def call_once(provider, page, key, timeout):
         error_class = "http_error"
     return {"status": status, "error_class": error_class, "markdown": markdown,
             "retry_after": retry_after,
+            "captured_headers": captured_headers,
             "latency_ms": latency_ms, "raw_bytes": len(raw)}
 
 

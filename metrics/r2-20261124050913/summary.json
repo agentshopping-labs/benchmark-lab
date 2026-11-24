@@ -16,7 +16,12 @@
         "min": 1151,
         "max": 3576
       },
-      "markdown_tokens": null,
+      "markdown_tokens": {
+        "min": 342,
+        "max": 123714,
+        "mean": 15952.11,
+        "null_count": 2
+      },
       "markdown_chars": {
         "min": 29,
         "max": 373213,
@@ -45,7 +50,12 @@
         "min": 1272,
         "max": 94191
       },
-      "markdown_tokens": null,
+      "markdown_tokens": {
+        "min": 715,
+        "max": 91289,
+        "mean": 15313.29,
+        "null_count": 3
+      },
       "markdown_chars": {
         "min": 153,
         "max": 394567,
@@ -76,7 +86,12 @@
         "min": 2533,
         "max": 61990
       },
-      "markdown_tokens": null,
+      "markdown_tokens": {
+        "min": 476,
+        "max": 86622,
+        "mean": 15520.0,
+        "null_count": 5
+      },
       "markdown_chars": {
         "min": 0,
         "max": 384273,

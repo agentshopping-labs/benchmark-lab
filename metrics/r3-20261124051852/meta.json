@@ -4,8 +4,9 @@
   "round": "r3",
   "dry_run": false,
   "tokenizer": {
-    "name": null,
-    "note": "tiktoken unavailable; token fields null"
+    "name": "tiktoken",
+    "encoding": "cl100k_base",
+    "backfilled_from_local_markdown": true
   },
   "providers": [
     "firecrawl",

@@ -7,6 +7,7 @@
       "label": "Firecrawl",
       "endpoint": "https://api.firecrawl.dev/v2/scrape",
       "key_env": "FIRECRAWL_API_KEY",
+      "rate_per_minute": 10,
       "markdown_scope": "main_content",
       "request": {
         "method": "POST",
@@ -36,6 +37,7 @@
       "label": "Bright Data",
       "endpoint": "https://api.brightdata.com/datasets/v3/scrape",
       "key_env": "BRIGHTDATA_API_KEY",
+      "rate_per_minute": 1000,
       "markdown_scope": "full_page",
       "request": {
         "method": "POST",

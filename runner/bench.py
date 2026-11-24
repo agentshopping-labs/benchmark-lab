@@ -74,6 +74,51 @@ def word_count(text):
     return len(text.split())
 
 
+class RatePacer:
+    """Sliding 60s window limiter. per_minute <= 0 disables pacing."""
+
+    def __init__(self, per_minute, *, clock=time.monotonic, sleeper=time.sleep):
+        self.per_minute = per_minute
+        self._stamps = []
+        self._clock = clock
+        self._sleeper = sleeper
+
+    def _prune(self, now):
+        self._stamps = [t for t in self._stamps if now - t < 60]
+
+    def wait(self):
+        if self.per_minute <= 0:
+            return
+        now = self._clock()
+        self._prune(now)
+        if len(self._stamps) >= self.per_minute:
+            self._sleeper(max(60 - (now - self._stamps[0]), 0))
+            now = self._clock()
+            self._prune(now)
+        self._stamps.append(self._clock())
+
+
+def rate_retry_delay(result, attempt, base=5.0, cap=60.0):
+    retry_after = result.get("retry_after")
+    if retry_after is not None:
+        return float(retry_after)
+    return min(cap, base * (2 ** attempt))
+
+
+def call_with_rate_retry(provider, page, key, timeout, max_retries, pacer,
+                         *, sleep=time.sleep, caller=None):
+    """Call one page, retrying 429s with backoff up to max_retries."""
+    caller = caller or call_once
+    result = None
+    for attempt in range(max_retries + 1):
+        pacer.wait()
+        result = caller(provider, page, key, timeout)
+        if result.get("status") != 429 or attempt == max_retries:
+            return result, attempt
+        sleep(rate_retry_delay(result, attempt))
+    return result, attempt
+
+
 def make_request(provider, url, key):
     spec = provider["request"]
     method = spec.get("method", "GET")
@@ -110,6 +155,16 @@ def _fill(node, url):
                 _fill(item, url)
 
 
+def _parse_retry_after(headers):
+    raw = headers.get("Retry-After")
+    if raw is None:
+        return None
+    try:
+        return float(raw)
+    except ValueError:
+        return None  # HTTP-date form not supported; fall back to backoff
+
+
 def call_once(provider, page, key, timeout):
     request = make_request(provider, page["url"], key)
     started = time.monotonic()
@@ -119,19 +174,24 @@ def call_once(provider, page, key, timeout):
             if response.headers.get("Content-Encoding") == "gzip":
                 raw = gzip.decompress(raw)
             status = response.status
+            retry_after = None
     except urllib.error.HTTPError as error:
         raw = error.read() or b""
         if error.headers.get("Content-Encoding") == "gzip" and raw:
             raw = gzip.decompress(raw)
         status = error.code
+        retry_after = _parse_retry_after(error.headers)
     except TimeoutError:
         return {"status": None, "error_class": "timeout", "markdown": None,
+                "retry_after": None,
                 "latency_ms": round((time.monotonic() - started) * 1000)}
     except urllib.error.URLError as error:
         if "timed out" in str(error.reason):
             return {"status": None, "error_class": "timeout", "markdown": None,
+                    "retry_after": None,
                     "latency_ms": round((time.monotonic() - started) * 1000)}
         return {"status": None, "error_class": "network", "markdown": None,
+                "retry_after": None,
                 "latency_ms": round((time.monotonic() - started) * 1000)}
     latency_ms = round((time.monotonic() - started) * 1000)
 
@@ -154,6 +214,7 @@ def call_once(provider, page, key, timeout):
     if status != 200:
         error_class = "http_error"
     return {"status": status, "error_class": error_class, "markdown": markdown,
+            "retry_after": retry_after,
             "latency_ms": latency_ms, "raw_bytes": len(raw)}
 
 
@@ -184,6 +245,8 @@ def main():
     parser.add_argument("--max-errors", type=int, default=3,
                         help="abort after this many consecutive quota/network errors")
     parser.add_argument("--delay", type=float, default=2.0, help="seconds between calls")
+    parser.add_argument("--max-rate-retries", type=int, default=5,
+                        help="retries on 429 before treating the page as failed")
     parser.add_argument("--timeout", type=float, default=120.0)
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
@@ -230,13 +293,18 @@ def main():
         if not key and not args.dry_run:
             raise SystemExit(f"missing {provider['key_env']} in .env")
         records = []
+        pacer = RatePacer(provider.get("rate_per_minute", 0))
         for page in pages:
             if killed():
                 raise SystemExit("kill switch detected; stopping")
             if args.dry_run:
                 print(f"[dry] {provider['id']} <- {page['url']}")
                 continue
-            result = call_once(provider, page, key, args.timeout)
+            result, rate_attempts = call_with_rate_retry(
+                provider, page, key, args.timeout, args.max_rate_retries, pacer)
+            if rate_attempts:
+                print(f"{provider['id']} {page['index']:02d} 429 retried "
+                      f"{rate_attempts}x before final status={result['status']}")
             markdown = result.pop("markdown")
             block_reason = is_block(markdown, page, detection) if not result["error_class"] else None
             success = is_success(result, block_reason)

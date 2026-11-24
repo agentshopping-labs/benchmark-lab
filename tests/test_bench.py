@@ -240,6 +240,21 @@ class TestCallOnce(unittest.TestCase):
         self.assertEqual(result["status"], 429)
         self.assertEqual(result["error_class"], "http_error")
 
+    def test_429_surfaces_retry_after(self):
+        def fake_urlopen(req, timeout):
+            raise urllib.error.HTTPError(
+                req.full_url, 429, "Too Many Requests",
+                FakeHeaders({"Retry-After": "15"}), io.BytesIO(b"{}"))
+
+        original = bench.urllib.request.urlopen
+        bench.urllib.request.urlopen = fake_urlopen
+        try:
+            result = bench.call_once(self._provider(),
+                                     {"url": "https://t"}, "k", 30)
+        finally:
+            bench.urllib.request.urlopen = original
+        self.assertEqual(result["retry_after"], 15.0)
+
     def test_timeout(self):
         def fake_urlopen(req, timeout):
             raise TimeoutError()
@@ -253,6 +268,65 @@ class TestCallOnce(unittest.TestCase):
             bench.urllib.request.urlopen = original
         self.assertEqual(result["error_class"], "timeout")
         self.assertIsNone(result["status"])
+
+
+class TestRatePacer(unittest.TestCase):
+    def test_disabled_when_zero(self):
+        pacer = bench.RatePacer(0)
+        for _ in range(50):
+            pacer.wait()  # must never block
+
+    def test_blocks_over_cap_within_window(self):
+        now = [1000.0]
+        slept = []
+        pacer = bench.RatePacer(
+            10, clock=lambda: now[0], sleeper=lambda s: slept.append(s))
+        for _ in range(10):
+            pacer.wait()
+        self.assertEqual(slept, [])
+        pacer.wait()  # 11th call must block
+        self.assertEqual(len(slept), 1)
+        self.assertAlmostEqual(slept[0], 60.0)
+
+    def test_window_expiry_frees_slot(self):
+        now = [1000.0]
+        pacer = bench.RatePacer(
+            2, clock=lambda: now[0], sleeper=lambda s: now.__setitem__(0, now[0] + s))
+        pacer.wait(); pacer.wait()
+        now[0] += 61  # window slid past
+        pacer.wait()  # no block, slot freed
+
+    def test_rate_retry_delay_prefers_retry_after(self):
+        self.assertEqual(bench.rate_retry_delay({"retry_after": 12}, 0), 12)
+        self.assertEqual(bench.rate_retry_delay({"retry_after": None}, 0), 5)
+        self.assertEqual(bench.rate_retry_delay({"retry_after": None}, 2), 20)
+        self.assertEqual(bench.rate_retry_delay({"retry_after": None}, 6), 60)
+
+    def test_call_with_rate_retry_retries_then_succeeds(self):
+        pacer = bench.RatePacer(0)
+        calls = []
+
+        def caller(provider, page, key, timeout):
+            calls.append(1)
+            if len(calls) < 3:
+                return {"status": 429, "retry_after": 1, "error_class": "http_error"}
+            return {"status": 200, "retry_after": None, "error_class": None}
+
+        delays = []
+        result, attempts = bench.call_with_rate_retry(
+            {}, {}, "k", 30, 5, pacer, sleep=delays.append, caller=caller)
+        self.assertEqual(result["status"], 200)
+        self.assertEqual(attempts, 2)
+        self.assertEqual(delays, [1, 1])
+
+    def test_call_with_rate_retry_exhausts_budget(self):
+        pacer = bench.RatePacer(0)
+        caller = lambda *a: {"status": 429, "retry_after": None,
+                             "error_class": "http_error"}
+        result, attempts = bench.call_with_rate_retry(
+            {}, {}, "k", 30, 2, pacer, sleep=lambda s: None, caller=caller)
+        self.assertEqual(result["status"], 429)
+        self.assertEqual(attempts, 2)
 
 
 class TestCliDryRun(unittest.TestCase):

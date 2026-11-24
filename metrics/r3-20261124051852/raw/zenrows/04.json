@@ -1,0 +1,17 @@
+{
+  "index": 4,
+  "url": "https://www.homedepot.com/p/304658562",
+  "page_type": "ecommerce",
+  "anti_bot": true,
+  "status": 504,
+  "error_class": "http_error",
+  "retry_after": null,
+  "latency_ms": 97643,
+  "raw_bytes": 153,
+  "response_sha256": "afd0169c794f80117e7af4c81261defe4871c29e0aa7df0c44589cffa23aa521",
+  "block_reason": null,
+  "success": false,
+  "markdown_chars": 153,
+  "markdown_words": 4,
+  "markdown_tokens": null
+}

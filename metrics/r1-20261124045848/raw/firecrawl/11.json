@@ -1,0 +1,17 @@
+{
+  "index": 11,
+  "url": "https://openai.com/api/pricing/",
+  "page_type": "saas",
+  "anti_bot": true,
+  "status": 200,
+  "error_class": null,
+  "retry_after": null,
+  "latency_ms": 1643,
+  "raw_bytes": 13134,
+  "response_sha256": "08ea88afc4a997d08dfba2f78028e9880bb1ae96d6466841e98cd8cfc4870b28",
+  "block_reason": null,
+  "success": true,
+  "markdown_chars": 10271,
+  "markdown_words": 1282,
+  "markdown_tokens": null
+}

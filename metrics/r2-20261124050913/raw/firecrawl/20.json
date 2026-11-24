@@ -1,0 +1,17 @@
+{
+  "index": 20,
+  "url": "https://vercel.com/docs",
+  "page_type": "docs",
+  "anti_bot": false,
+  "status": 200,
+  "error_class": null,
+  "retry_after": null,
+  "latency_ms": 1614,
+  "raw_bytes": 12748,
+  "response_sha256": "f0c482dcb4bc8d49ad2e4c6f571ce3d2b7ceb8c4337f23df5db9859e46b211d7",
+  "block_reason": "block_page",
+  "success": false,
+  "markdown_chars": 10323,
+  "markdown_words": 1127,
+  "markdown_tokens": null
+}

@@ -1,0 +1,17 @@
+{
+  "index": 9,
+  "url": "https://stripe.com/pricing",
+  "page_type": "saas",
+  "anti_bot": false,
+  "status": 200,
+  "error_class": null,
+  "retry_after": null,
+  "latency_ms": 8455,
+  "raw_bytes": 73360,
+  "response_sha256": "17f6422ddfb5128e69b4b0c5eb21cb43127433de8d25bcbcec2381e1d9cdc6bc",
+  "block_reason": null,
+  "success": true,
+  "markdown_chars": 72957,
+  "markdown_words": 6665,
+  "markdown_tokens": null
+}

@@ -1,0 +1,17 @@
+{
+  "index": 17,
+  "url": "https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction",
+  "page_type": "docs",
+  "anti_bot": false,
+  "status": 200,
+  "error_class": null,
+  "retry_after": null,
+  "latency_ms": 1673,
+  "raw_bytes": 42670,
+  "response_sha256": "7c22ffa4e6c069524f196d1d9414b58f2a15962ef20e7a64582b63ec6434e718",
+  "block_reason": null,
+  "success": true,
+  "markdown_chars": 37873,
+  "markdown_words": 4094,
+  "markdown_tokens": null
+}

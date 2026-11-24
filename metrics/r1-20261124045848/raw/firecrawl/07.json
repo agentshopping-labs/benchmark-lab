@@ -1,0 +1,17 @@
+{
+  "index": 7,
+  "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+  "page_type": "sandbox",
+  "anti_bot": false,
+  "status": 200,
+  "error_class": null,
+  "retry_after": null,
+  "latency_ms": 1296,
+  "raw_bytes": 3564,
+  "response_sha256": "0b122d61e04887324285772d19cac4657585004f11e09cf02800a1544eecb9b7",
+  "block_reason": null,
+  "success": true,
+  "markdown_chars": 1809,
+  "markdown_words": 268,
+  "markdown_tokens": null
+}

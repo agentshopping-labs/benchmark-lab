@@ -1,0 +1,17 @@
+{
+  "index": 19,
+  "url": "https://supabase.com/docs",
+  "page_type": "docs",
+  "anti_bot": false,
+  "status": 200,
+  "error_class": null,
+  "retry_after": null,
+  "latency_ms": 1517,
+  "raw_bytes": 11564,
+  "response_sha256": "232a91bc81b57427c74bbb5f9c2e945bb4a0a1b9ceed670dac243ca8ee18a8aa",
+  "block_reason": null,
+  "success": true,
+  "markdown_chars": 9466,
+  "markdown_words": 568,
+  "markdown_tokens": null
+}

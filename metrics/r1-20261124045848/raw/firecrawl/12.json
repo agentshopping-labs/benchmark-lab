@@ -1,0 +1,17 @@
+{
+  "index": 12,
+  "url": "https://www.datadoghq.com/pricing/",
+  "page_type": "saas",
+  "anti_bot": false,
+  "status": 200,
+  "error_class": null,
+  "retry_after": null,
+  "latency_ms": 3133,
+  "raw_bytes": 377596,
+  "response_sha256": "f925be470c564709767d9163cf7b21121169fa09bb032e001c7ea424bc1543d6",
+  "block_reason": null,
+  "success": true,
+  "markdown_chars": 368995,
+  "markdown_words": 41047,
+  "markdown_tokens": null
+}

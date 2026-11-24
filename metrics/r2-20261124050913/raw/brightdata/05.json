@@ -1,0 +1,17 @@
+{
+  "index": 5,
+  "url": "https://www.amazon.com/best-sellers-electronics/zgbs/electronics",
+  "page_type": "ecommerce",
+  "anti_bot": true,
+  "status": 200,
+  "error_class": null,
+  "retry_after": null,
+  "latency_ms": 3541,
+  "raw_bytes": 38287,
+  "response_sha256": "844495542a916f5e31bbd05d0d37509f0b6fec117582c95b962ea2b3c8d3feee",
+  "block_reason": null,
+  "success": true,
+  "markdown_chars": 37905,
+  "markdown_words": 2130,
+  "markdown_tokens": null
+}

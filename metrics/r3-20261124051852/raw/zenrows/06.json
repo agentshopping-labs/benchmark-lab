@@ -1,0 +1,17 @@
+{
+  "index": 6,
+  "url": "https://www.scrapingcourse.com/ecommerce/product/abominable-hoodie/",
+  "page_type": "sandbox",
+  "anti_bot": false,
+  "status": 200,
+  "error_class": null,
+  "retry_after": null,
+  "latency_ms": 3718,
+  "raw_bytes": 4498,
+  "response_sha256": "15467d63846f382048c06020bb13c3faccf133c4d910fa8407440d3cc1de7da3",
+  "block_reason": null,
+  "success": true,
+  "markdown_chars": 4485,
+  "markdown_words": 242,
+  "markdown_tokens": null
+}

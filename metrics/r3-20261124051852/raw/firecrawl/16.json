@@ -1,0 +1,17 @@
+{
+  "index": 16,
+  "url": "https://cloud.google.com/storage/docs/introduction",
+  "page_type": "docs",
+  "anti_bot": false,
+  "status": 200,
+  "error_class": null,
+  "retry_after": null,
+  "latency_ms": 2018,
+  "raw_bytes": 28718,
+  "response_sha256": "db5b015a402f80e15b950d6c14f12ebffeaca8c7371b7ee666edfd2bf56a0edf",
+  "block_reason": null,
+  "success": true,
+  "markdown_chars": 26347,
+  "markdown_words": 2460,
+  "markdown_tokens": null
+}

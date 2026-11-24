@@ -1,0 +1,18 @@
+{
+  "run_id": "r1-20261124045848",
+  "started": "2026-11-24T04:58:48Z",
+  "round": "r1",
+  "dry_run": false,
+  "tokenizer": {
+    "name": null,
+    "note": "tiktoken unavailable; token fields null"
+  },
+  "providers": [
+    "firecrawl",
+    "zenrows",
+    "brightdata"
+  ],
+  "page_count": 20,
+  "delay_seconds": 2.0,
+  "timeout_seconds": 120.0
+}

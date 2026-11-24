@@ -1,0 +1,17 @@
+{
+  "index": 15,
+  "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/",
+  "page_type": "docs",
+  "anti_bot": false,
+  "status": 200,
+  "error_class": null,
+  "retry_after": null,
+  "latency_ms": 10626,
+  "raw_bytes": 42587,
+  "response_sha256": "0cf307fb470abcba5d380f2e5cf9921599b27e4be17778ac028ece3011e49526",
+  "block_reason": null,
+  "success": true,
+  "markdown_chars": 42531,
+  "markdown_words": 5830,
+  "markdown_tokens": null
+}

@@ -1,0 +1,17 @@
+{
+  "index": 3,
+  "url": "https://www.bestbuy.com/site/sony-wh-1000xm5-wireless-noise-canceling-over-the-ear-headphones-black/6505772.p",
+  "page_type": "ecommerce",
+  "anti_bot": true,
+  "status": 200,
+  "error_class": null,
+  "retry_after": null,
+  "latency_ms": 8987,
+  "raw_bytes": 2158,
+  "response_sha256": "1c67bb856571834dd934f10bdcc09d64eb204726702dfcf82d2dd1719a330dfc",
+  "block_reason": null,
+  "success": true,
+  "markdown_chars": 1967,
+  "markdown_words": 114,
+  "markdown_tokens": null
+}

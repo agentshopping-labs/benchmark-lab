@@ -1,0 +1,17 @@
+{
+  "index": 14,
+  "url": "https://www.mongodb.com/pricing",
+  "page_type": "saas",
+  "anti_bot": false,
+  "status": 200,
+  "error_class": null,
+  "retry_after": null,
+  "latency_ms": 5279,
+  "raw_bytes": 53975,
+  "response_sha256": "dedffa6a95365671e8cd920f7a04aecc2b87414fd319ae4f67799cc8f2800b98",
+  "block_reason": null,
+  "success": true,
+  "markdown_chars": 52834,
+  "markdown_words": 5732,
+  "markdown_tokens": null
+}

@@ -1,0 +1,94 @@
+{
+  "run_id": "r3-20261124051852",
+  "finished": "2026-11-24T05:28:59Z",
+  "summaries": {
+    "firecrawl": {
+      "calls": 20,
+      "successes": 18,
+      "success_rate": 0.9,
+      "failure_classes": {
+        "success": 18,
+        "block_page": 2
+      },
+      "latency_ms": {
+        "p50": 2018,
+        "p95": 4764,
+        "min": 1111,
+        "max": 5620
+      },
+      "markdown_tokens": null,
+      "markdown_chars": {
+        "min": 29,
+        "max": 373213,
+        "mean": 53938.6,
+        "null_count": 0
+      },
+      "markdown_words": {
+        "min": 8,
+        "max": 41047,
+        "mean": 4992.9,
+        "null_count": 0
+      }
+    },
+    "zenrows": {
+      "calls": 20,
+      "successes": 17,
+      "success_rate": 0.85,
+      "failure_classes": {
+        "success": 17,
+        "http_error": 2,
+        "block_page": 1
+      },
+      "latency_ms": {
+        "p50": 3395,
+        "p95": 26917,
+        "min": 1461,
+        "max": 97643
+      },
+      "markdown_tokens": null,
+      "markdown_chars": {
+        "min": 153,
+        "max": 394567,
+        "mean": 50613.7,
+        "null_count": 0
+      },
+      "markdown_words": {
+        "min": 4,
+        "max": 43391,
+        "mean": 5238.0,
+        "null_count": 0
+      }
+    },
+    "brightdata": {
+      "calls": 20,
+      "successes": 15,
+      "success_rate": 0.75,
+      "failure_classes": {
+        "success": 15,
+        "http_error": 1,
+        "empty": 2,
+        "parse_error": 1,
+        "block_page": 1
+      },
+      "latency_ms": {
+        "p50": 4896,
+        "p95": 23064,
+        "min": 2618,
+        "max": 61882
+      },
+      "markdown_tokens": null,
+      "markdown_chars": {
+        "min": 0,
+        "max": 384273,
+        "mean": 45983.1,
+        "null_count": 0
+      },
+      "markdown_words": {
+        "min": 0,
+        "max": 42838,
+        "mean": 4859.3,
+        "null_count": 0
+      }
+    }
+  }
+}

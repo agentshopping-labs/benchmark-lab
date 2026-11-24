@@ -1,0 +1,17 @@
+{
+  "index": 8,
+  "url": "https://www.etsy.com/c/jewelry",
+  "page_type": "ecommerce",
+  "anti_bot": true,
+  "status": 200,
+  "error_class": null,
+  "retry_after": null,
+  "latency_ms": 8511,
+  "raw_bytes": 98504,
+  "response_sha256": "ab6576f33765ca67517fb5f4556a3be616ab7b8d7406ac3f8008ebfc60d9b98a",
+  "block_reason": null,
+  "success": true,
+  "markdown_chars": 96637,
+  "markdown_words": 6838,
+  "markdown_tokens": null
+}

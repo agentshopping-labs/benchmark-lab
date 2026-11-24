@@ -1,0 +1,17 @@
+{
+  "index": 13,
+  "url": "https://www.atlassian.com/software/jira/pricing",
+  "page_type": "saas",
+  "anti_bot": true,
+  "status": 200,
+  "error_class": null,
+  "retry_after": null,
+  "latency_ms": 4932,
+  "raw_bytes": 72,
+  "response_sha256": null,
+  "block_reason": "empty",
+  "success": false,
+  "markdown_chars": 0,
+  "markdown_words": 0,
+  "markdown_tokens": null
+}

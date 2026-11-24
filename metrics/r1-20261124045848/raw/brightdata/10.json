@@ -1,0 +1,17 @@
+{
+  "index": 10,
+  "url": "https://www.plaid.com/pricing/",
+  "page_type": "saas",
+  "anti_bot": false,
+  "status": 200,
+  "error_class": null,
+  "retry_after": null,
+  "latency_ms": 3436,
+  "raw_bytes": 13034,
+  "response_sha256": "7646d21792d0eb4d699c713eabf1a04162b2a576ab4793b5cbc0732eedc4de4a",
+  "block_reason": null,
+  "success": true,
+  "markdown_chars": 12652,
+  "markdown_words": 1207,
+  "markdown_tokens": null
+}

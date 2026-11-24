@@ -1,0 +1,17 @@
+{
+  "index": 2,
+  "url": "https://www.ikea.com/us/en/p/kallax-shelf-unit-white-80275887/",
+  "page_type": "ecommerce",
+  "anti_bot": true,
+  "status": 200,
+  "error_class": null,
+  "retry_after": null,
+  "latency_ms": 2035,
+  "raw_bytes": 2946,
+  "response_sha256": "b42007d65d3f77b4c84f6f626165b118072e5f2d60b442a016ef80f174a89b9c",
+  "block_reason": null,
+  "success": true,
+  "markdown_chars": 1451,
+  "markdown_words": 158,
+  "markdown_tokens": null
+}
